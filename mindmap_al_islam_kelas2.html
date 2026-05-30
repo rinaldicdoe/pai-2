@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind Map — Pendidikan Al Islam Kelas 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a5c38;
+    --green-mid: #2d8a56;
+    --gold: #d4a017;
+    --gold-light: #f5d87e;
+    --cream: #fdf8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #0f1f14; color: #1a1a2e; min-height: 100vh; }
+
+  .site-header {
+    background: linear-gradient(135deg, #0d3320 0%, #1a5c38 50%, #0d3320 100%);
+    padding: 28px 20px 22px; text-align: center;
+    border-bottom: 3px solid var(--gold); position: relative; overflow: hidden;
+  }
+  .site-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a017' fill-opacity='0.06'%3E%3Cpath d='M30 0L60 30L30 60L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+  .site-header h1 { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-light); letter-spacing: 1px; text-shadow: 0 2px 12px rgba(0,0,0,0.5); position: relative; }
+  .site-header p { color: rgba(255,255,255,0.55); font-size: 0.8rem; margin-top: 5px; position: relative; }
+
+  .tabs-bar {
+    background: #111f17; padding: 14px 16px;
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    border-bottom: 2px solid #1e3a28; position: sticky; top: 0; z-index: 100;
+  }
+  .tab-btn {
+    padding: 8px 15px; border-radius: 30px; border: 2px solid;
+    background: transparent; cursor: pointer; font-family: 'Nunito', sans-serif;
+    font-size: 0.77rem; font-weight: 800; transition: all 0.2s ease; white-space: nowrap;
+  }
+  .tab-btn[data-t="0"] { border-color: #2d8a56; color: #2d8a56; }
+  .tab-btn[data-t="1"] { border-color: #e07b39; color: #e07b39; }
+  .tab-btn[data-t="2"] { border-color: #8b5cf6; color: #8b5cf6; }
+  .tab-btn[data-t="3"] { border-color: #0ea5e9; color: #0ea5e9; }
+  .tab-btn[data-t="4"] { border-color: #d97706; color: #d97706; }
+  .tab-btn[data-t="0"]:hover,.tab-btn[data-t="0"].active { background:#2d8a56; color:#fff; }
+  .tab-btn[data-t="1"]:hover,.tab-btn[data-t="1"].active { background:#e07b39; color:#fff; }
+  .tab-btn[data-t="2"]:hover,.tab-btn[data-t="2"].active { background:#8b5cf6; color:#fff; }
+  .tab-btn[data-t="3"]:hover,.tab-btn[data-t="3"].active { background:#0ea5e9; color:#fff; }
+  .tab-btn[data-t="4"]:hover,.tab-btn[data-t="4"].active { background:#d97706; color:#fff; }
+
+  .content-area { padding: 22px 18px 50px; max-width: 1200px; margin: 0 auto; }
+  .panel { display: none; animation: fadeUp 0.3s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  .sec-hdr {
+    border-radius: 12px; padding: 14px 20px; margin-bottom: 20px;
+    color: white; font-size: 1rem; font-weight: 900; letter-spacing: 0.4px;
+    display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  }
+  .intro-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 18px;
+  }
+  .intro-card li { color: rgba(255,255,255,0.8); font-size: 0.8rem; padding: 3px 0 3px 16px; position: relative; line-height: 1.5; list-style: none; }
+  .intro-card li::before { content: "◆"; position: absolute; left: 0; font-size: 0.5rem; top: 7px; color: #d4a017; }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 15px; }
+  .card {
+    background: var(--cream); border-radius: 12px; padding: 15px; border-left: 5px solid;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22); transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
+  .card-title { font-size: 0.9rem; font-weight: 900; margin-bottom: 9px; }
+
+  .arabic-block {
+    background: linear-gradient(135deg, #0d3320, #1a5c38);
+    border-radius: 8px; padding: 9px 13px; margin: 7px 0;
+  }
+  .arabic { font-family: 'Amiri', serif; font-size: 1.35rem; color: #f5d87e; direction: rtl; line-height: 2; display: block; text-align: right; }
+  .latin { font-size: 0.76rem; color: rgba(255,255,255,0.68); font-style: italic; text-align: left; margin-top: 1px; }
+  .meaning { font-size: 0.76rem; color: rgba(255,255,255,0.9); text-align: left; }
+
+  .info-list { list-style: none; }
+  .info-list li { font-size: 0.79rem; color: #333; padding: 3px 0 3px 15px; position: relative; line-height: 1.45; }
+  .info-list li::before { content: "•"; position: absolute; left: 0; color: #999; }
+
+  .sub-sec { background: #eff4ef; border-radius: 8px; padding: 9px 11px; margin-top: 8px; }
+  .sub-title { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.9px; text-transform: uppercase; color: #777; margin-bottom: 6px; }
+
+  .arabic-example { background: linear-gradient(135deg, #0d3320, #1a5c38); border-radius: 8px; padding: 9px 13px; margin: 5px 0; }
+  .arabic-example .arabic { font-size: 1.15rem; }
+  .arrow-row { display: flex; align-items: center; justify-content: center; color: #d4a017; font-size: 0.72rem; margin: 2px 0; gap: 5px; }
+
+  .waktu-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #e2e2e2; font-size: 0.79rem; color: #333; gap: 6px; }
+  .waktu-row:last-child { border-bottom: none; }
+  .rakaat-badge { background: #ddf0e7; color: #1a5c38; padding: 2px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; white-space: nowrap; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>🕌 MIND MAP — PENDIDIKAN AL ISLAM KELAS 2</h1>
+  <p>Klik tab di bawah untuk menjelajahi setiap bab</p>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" data-t="0">📖 1. Al-Qur'an &amp; Hadis</button>
+  <button class="tab-btn" data-t="1">✨ 2. Asmaul Husna</button>
+  <button class="tab-btn" data-t="2">💎 3. Akhlak Baik</button>
+  <button class="tab-btn" data-t="3">🙏 4. Ibadah Sehari-hari</button>
+  <button class="tab-btn" data-t="4">🌟 5. Kisah Para Nabi</button>
+</div>
+
+<div class="content-area">
+
+<!-- ═══ PANEL 1 ═══ -->
+<div class="panel active" id="p0">
+  <div class="sec-hdr" style="background:linear-gradient(135deg,#1a5c38,#2d8a56);">📖 Bab 1: Aku Mengenal Al-Qur'an dan Hadis</div>
+  <div class="cards-grid">
+
+    <div class="card" style="border-color:#2d8a56;">
+      <div class="card-title" style="color:#2d8a56;">🔤 Huruf Hijaiyah Bersambung</div>
+      <ul class="info-list">
+        <li>Huruf hijaiyah adalah huruf Arab yang digunakan untuk membaca Al-Qur'an.</li>
+        <li>Huruf hijaiyah bisa ditulis sendiri-sendiri dan bisa ditulis bersambung.</li>
+        <li>Saat berada di dalam ayat Al-Qur'an, huruf hijaiyah biasanya ditulis bersambung.</li>
+      </ul>
+      <div class="sub-sec">
+        <div class="sub-title">Contoh Terpisah → Bersambung</div>
+        <div class="arabic-example"><div class="arabic">ا  ل  ح  م  د</div></div>
+        <div class="arrow-row">↓ disambung menjadi ↓</div>
+        <div class="arabic-example"><div class="arabic">اَلْحَمْدُ</div></div>
+        <div class="arabic-example" style="margin-top:5px;">
+          <div class="arabic">ر  ح  م  ن  ←  الرَّحْمٰنِ</div>
+          <div class="arabic">ر  ح  ي  م  ←  الرَّحِيْمِ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#1a7a48;">
+      <div class="card-title" style="color:#1a7a48;">📜 Q.S. Al-Fatihah</div>
+      <ul class="info-list">
+        <li>Al-Fatihah artinya pembukaan.</li>
+        <li>Q.S. Al-Fatihah adalah surat pembuka dalam Al-Qur'an.</li>
+        <li>Al-Fatihah selalu dibaca ketika sholat.</li>
+        <li>Al-Fatihah mengajarkan kita untuk memuji Allah, beribadah kepada Allah, meminta pertolongan kepada Allah, dan memohon jalan yang lurus.</li>
+      </ul>
+      <div class="sub-sec" style="margin-top:9px;">
+        <div class="sub-title">Bacaan Penting dalam Al-Fatihah</div>
+        <div class="arabic-block">
+          <span class="arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</span>
+          <div class="latin">Bismillaahir rahmaanir rahiim</div>
+          <div class="meaning">Artinya: Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</div>
+        </div>
+        <div class="arabic-block">
+          <span class="arabic">اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَ</span>
+          <div class="latin">Alhamdu lillaahi rabbil 'aalamiin</div>
+          <div class="meaning">Artinya: Segala puji bagi Allah, Tuhan seluruh alam.</div>
+        </div>
+        <div class="arabic-block">
+          <span class="arabic">الرَّحْمٰنِ الرَّحِيْمِ</span>
+          <div class="latin">Ar-rahmaanir rahiim</div>
+          <div class="meaning">Artinya: Yang Maha Pengasih lagi Maha Penyayang.</div>
+        </div>
+        <div class="arabic-block">
+          <span class="arabic">مٰلِكِ يَوْمِ الدِّيْنِ</span>
+          <div class="latin">Maaliki yaumid diin</div>
+          <div class="meaning">Artinya: Pemilik hari pembalasan.</div>
+        </div>
+        <div class="arabic-block">
+          <span class="arabic">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُ</span>
+          <div class="latin">Iyyaaka na'budu wa iyyaaka nasta'iin</div>
+          <div class="meaning">Artinya: Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan.</div>
+        </div>
+        <div class="arabic-block">
+          <span class="arabic">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ</span>
+          <div class="latin">Ihdinash shiraathal mustaqiim</div>
+          <div class="meaning">Artinya: Tunjukilah kami jalan yang lurus.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#3aac72;">
+      <div class="card-title" style="color:#3aac72;">💡 Isi Kandungan Q.S. Al-Fatihah</div>
+      <ul class="info-list">
+        <li>Kita memulai sesuatu dengan menyebut nama Allah.</li>
+        <li>Kita memuji Allah karena Allah adalah Tuhan seluruh alam.</li>
+        <li>Kita yakin Allah Maha Pengasih dan Maha Penyayang.</li>
+        <li>Kita beribadah hanya kepada Allah.</li>
+        <li>Kita meminta pertolongan hanya kepada Allah.</li>
+        <li>Kita memohon agar diberi jalan yang benar.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-color:#48bb78;">
+      <div class="card-title" style="color:#48bb78;">📜 Q.S. Al-Ikhlas</div>
+      <ul class="info-list">
+        <li>Q.S. Al-Ikhlas menjelaskan bahwa Allah itu Esa.</li>
+        <li>Allah tidak beranak dan tidak diperanakkan.</li>
+        <li>Tidak ada sesuatu pun yang sama dengan Allah.</li>
+      </ul>
+      <div class="arabic-block" style="margin-top:8px;">
+        <span class="arabic">قُلْ هُوَ اللهُ أَحَدٌ</span>
+        <div class="latin">Qul huwallaahu ahad</div>
+        <div class="meaning">Artinya: Katakanlah, Dialah Allah Yang Maha Esa.</div>
+      </div>
+      <div class="arabic-block">
+        <span class="arabic">اللهُ الصَّمَدُ</span>
+        <div class="latin">Allaahush shomad</div>
+        <div class="meaning">Artinya: Allah tempat meminta segala sesuatu.</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#22c55e;">
+      <div class="card-title" style="color:#22c55e;">🧼 Hadis Kebersihan</div>
+      <ul class="info-list">
+        <li>Islam mengajarkan kita untuk menjaga kebersihan.</li>
+        <li>Anak muslim harus menjaga kebersihan badan, pakaian, rumah, kelas, dan masjid.</li>
+        <li>Kebersihan membuat badan sehat dan ibadah menjadi nyaman.</li>
+      </ul>
+      <div class="arabic-block" style="margin-top:8px;">
+        <span class="arabic">الطُّهُورُ شَطْرُ الْإِيْمَانِ</span>
+        <div class="latin">Ath-thuhuuru syathrul iimaan</div>
+        <div class="meaning">Artinya: Bersuci itu sebagian dari iman.</div>
+      </div>
+      <div class="sub-sec">
+        <div class="sub-title">Contoh Menjaga Kebersihan</div>
+        <ul class="info-list">
+          <li>mandi dengan teratur</li>
+          <li>mencuci tangan sebelum makan</li>
+          <li>membuang sampah pada tempatnya</li>
+          <li>membersihkan kelas</li>
+          <li>memakai pakaian bersih saat sholat</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PANEL 2 ═══ -->
+<div class="panel" id="p1">
+  <div class="sec-hdr" style="background:linear-gradient(135deg,#c05a20,#e07b39);">✨ Bab 2: Aku Mengenal Allah melalui Asmaul Husna</div>
+  <div class="intro-card">
+    <ul>
+      <li>Asmaul Husna adalah nama-nama Allah yang baik dan indah.</li>
+      <li>Dengan mengenal Asmaul Husna, kita semakin yakin bahwa Allah Maha Sempurna.</li>
+      <li>Kita juga belajar mencontoh sikap baik sesuai makna Asmaul Husna.</li>
+    </ul>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card" style="border-color:#e07b39;">
+      <div class="card-title" style="color:#e07b39;">الرَّحْمٰنُ — Ar-Rahman</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Pengasih.<br><strong>Maknanya:</strong> Allah memberi kasih sayang dan nikmat kepada semua makhluk.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>menyayangi teman</li><li>menolong orang lain</li><li>tidak menyakiti hewan</li><li>berbagi makanan kepada teman</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#d96b2a;">
+      <div class="card-title" style="color:#d96b2a;">الرَّحِيْمُ — Ar-Rahim</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Penyayang.<br><strong>Maknanya:</strong> Allah menyayangi hamba-Nya yang beriman.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>sayang kepada orang tua</li><li>mendoakan keluarga</li><li>berbicara lembut kepada teman</li><li>tidak mengejek orang lain</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#c85b1a;">
+      <div class="card-title" style="color:#c85b1a;">الْمَلِكُ — Al-Malik</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Merajai.<br><strong>Maknanya:</strong> Allah adalah penguasa seluruh alam.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>taat kepada perintah Allah</li><li>tidak sombong</li><li>mengikuti aturan yang baik</li><li>sadar bahwa semua milik Allah</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#f59e0b;">
+      <div class="card-title" style="color:#c07800;">الْقُدُّوسُ — Al-Quddus</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Suci.<br><strong>Maknanya:</strong> Allah bersih dari segala kekurangan.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>menjaga kebersihan badan</li><li>menjaga kebersihan pakaian</li><li>berkata baik</li><li>menjauhi perbuatan kotor dan buruk</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#ea580c;">
+      <div class="card-title" style="color:#ea580c;">الْعَزِيْزُ — Al-Aziz</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Perkasa.<br><strong>Maknanya:</strong> Allah sangat kuat dan berkuasa atas segala sesuatu.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>yakin bahwa Allah mampu menolong kita</li><li>tidak takut berbuat baik</li><li>tidak merasa paling kuat</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#dc7c35;">
+      <div class="card-title" style="color:#dc7c35;">الْمُهَيْمِنُ — Al-Muhaimin</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Memelihara / Maha Menjaga.<br><strong>Maknanya:</strong> Allah menjaga semua makhluk-Nya.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>bersyukur karena Allah menjaga kita</li><li>menjaga barang milik sendiri</li><li>menjaga amanah dari orang tua atau guru</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#b45309;">
+      <div class="card-title" style="color:#b45309;">السَّلَامُ — As-Salam</div>
+      <p style="font-size:0.79rem;color:#333;margin-bottom:7px;"><strong>Artinya:</strong> Allah Maha Memberi Keselamatan.<br><strong>Maknanya:</strong> Keselamatan datang dari Allah.</p>
+      <div class="sub-sec"><div class="sub-title">Contoh Sikap</div>
+        <ul class="info-list"><li>berdoa memohon keselamatan kepada Allah</li><li>menjaga diri dari bahaya</li><li>tidak mencelakai teman</li><li>menciptakan suasana damai</li></ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PANEL 3 ═══ -->
+<div class="panel" id="p2">
+  <div class="sec-hdr" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6);">💎 Bab 3: Aku Membiasakan Akhlak Baik</div>
+  <div class="intro-card">
+    <ul>
+      <li>Akhlak adalah perilaku atau sikap seseorang.</li>
+      <li>Anak muslim harus membiasakan akhlak baik di rumah, sekolah, dan masyarakat.</li>
+    </ul>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card" style="border-color:#8b5cf6;">
+      <div class="card-title" style="color:#8b5cf6;">✅ Jujur</div>
+      <ul class="info-list"><li>Jujur artinya berkata benar dan tidak berbohong.</li><li>Orang jujur akan dipercaya oleh orang lain.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Jujur</div>
+        <ul class="info-list"><li>tidak menyontek saat ujian</li><li>mengakui kesalahan</li><li>mengembalikan barang yang bukan miliknya</li><li>berkata benar kepada orang tua dan guru</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#7c3aed;">
+      <div class="card-title" style="color:#7c3aed;">⏰ Disiplin</div>
+      <ul class="info-list"><li>Disiplin artinya taat aturan dan tepat waktu.</li><li>Anak disiplin akan mudah belajar dan hidupnya lebih tertib.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Disiplin</div>
+        <ul class="info-list"><li>datang ke sekolah tepat waktu</li><li>memakai seragam sesuai aturan</li><li>sholat tepat waktu</li><li>mengerjakan PR sesuai jadwal</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#6d28d9;">
+      <div class="card-title" style="color:#6d28d9;">🤝 Amanah</div>
+      <ul class="info-list"><li>Amanah artinya dapat dipercaya.</li><li>Orang amanah menjaga tugas dan titipan dengan baik.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Amanah</div>
+        <ul class="info-list"><li>menjaga barang titipan teman</li><li>melaksanakan tugas piket</li><li>menyampaikan pesan dengan benar</li><li>menjaga rahasia yang baik</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#a78bfa;">
+      <div class="card-title" style="color:#7c3aed;">💪 Mandiri</div>
+      <ul class="info-list"><li>Mandiri artinya mampu melakukan tugas sendiri.</li><li>Anak mandiri tidak selalu bergantung kepada orang lain.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Mandiri</div>
+        <ul class="info-list"><li>memakai seragam sendiri</li><li>menyiapkan buku sendiri</li><li>mengerjakan tugas sendiri</li><li>merapikan tempat tidur sendiri</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#c4b5fd;">
+      <div class="card-title" style="color:#7c3aed;">📚 Rajin</div>
+      <ul class="info-list"><li>Rajin artinya bersungguh-sungguh dan tidak malas.</li><li>Anak rajin akan lebih mudah memahami pelajaran.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Rajin</div>
+        <ul class="info-list"><li>belajar setiap hari</li><li>membaca doa dan hafalan</li><li>membantu orang tua</li><li>mengulang pelajaran sebelum ujian</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#5b21b6;">
+      <div class="card-title" style="color:#5b21b6;">🔥 Kerja Keras</div>
+      <ul class="info-list"><li>Kerja keras artinya berusaha sungguh-sungguh.</li><li>Anak yang bekerja keras tidak mudah menyerah.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Contoh Kerja Keras</div>
+        <ul class="info-list"><li>tetap belajar walaupun pelajaran terasa sulit</li><li>terus berlatih membaca Al-Qur'an</li><li>mencoba lagi setelah gagal</li><li>menyelesaikan tugas sampai selesai</li></ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PANEL 4 ═══ -->
+<div class="panel" id="p3">
+  <div class="sec-hdr" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">🙏 Bab 4: Aku Belajar Ibadah Sehari-hari</div>
+  <div class="intro-card">
+    <ul>
+      <li>Ibadah adalah bentuk ketaatan kepada Allah.</li>
+      <li>Anak muslim belajar ibadah sejak kecil agar terbiasa taat kepada Allah.</li>
+    </ul>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card" style="border-color:#0ea5e9;">
+      <div class="card-title" style="color:#0ea5e9;">📢 Adzan</div>
+      <ul class="info-list"><li>Adzan adalah panggilan untuk melaksanakan sholat.</li><li>Orang yang mengumandangkan adzan disebut muadzin.</li><li>Saat mendengar adzan, kita berhenti bermain dan bersiap sholat.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Bacaan dalam Adzan</div>
+        <div class="arabic-block">
+          <span class="arabic">اللهُ أَكْبَرُ</span>
+          <div class="latin">Allaahu akbar</div>
+          <div class="meaning">Artinya: Allah Maha Besar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#0284c7;">
+      <div class="card-title" style="color:#0284c7;">🔔 Iqomah</div>
+      <ul class="info-list"><li>Iqomah adalah tanda bahwa sholat berjamaah akan segera dimulai.</li><li>Iqomah dibaca setelah adzan dan sebelum sholat berjamaah.</li><li>Setelah iqomah, jamaah segera merapikan saf.</li></ul>
+    </div>
+
+    <div class="card" style="border-color:#0369a1;">
+      <div class="card-title" style="color:#0369a1;">🕌 Sholat Fardhu</div>
+      <ul class="info-list"><li>Sholat fardhu adalah sholat wajib bagi umat Islam.</li><li>Sholat fardhu dikerjakan lima waktu dalam sehari.</li></ul>
+      <div class="sub-sec" style="margin-top:8px;"><div class="sub-title">Lima Waktu Sholat</div>
+        <div class="waktu-row"><span>🌅 <strong>Subuh</strong> — pagi hari sebelum matahari terbit</span><span class="rakaat-badge">2 rakaat</span></div>
+        <div class="waktu-row"><span>☀️ <strong>Zuhur</strong> — siang hari</span><span class="rakaat-badge">4 rakaat</span></div>
+        <div class="waktu-row"><span>🌤️ <strong>Asar</strong> — sore hari</span><span class="rakaat-badge">4 rakaat</span></div>
+        <div class="waktu-row"><span>🌇 <strong>Magrib</strong> — setelah matahari terbenam</span><span class="rakaat-badge">3 rakaat</span></div>
+        <div class="waktu-row"><span>🌙 <strong>Isya</strong> — malam hari</span><span class="rakaat-badge">4 rakaat</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#38bdf8;">
+      <div class="card-title" style="color:#0369a1;">📿 Dzikir Setelah Sholat</div>
+      <ul class="info-list"><li>Dzikir artinya mengingat Allah.</li><li>Dzikir dilakukan dengan menyebut nama Allah dan memuji Allah.</li><li>Dzikir membuat hati menjadi tenang.</li></ul>
+      <div class="arabic-block" style="margin-top:8px;">
+        <span class="arabic">سُبْحَانَ اللهِ</span>
+        <div class="latin">Subhaanallah</div><div class="meaning">Artinya: Maha Suci Allah.</div>
+      </div>
+      <div class="arabic-block">
+        <span class="arabic">الْحَمْدُ لِلّٰهِ</span>
+        <div class="latin">Alhamdulillah</div><div class="meaning">Artinya: Segala puji bagi Allah.</div>
+      </div>
+      <div class="arabic-block">
+        <span class="arabic">اللهُ أَكْبَرُ</span>
+        <div class="latin">Allaahu akbar</div><div class="meaning">Artinya: Allah Maha Besar.</div>
+      </div>
+      <div class="arabic-block">
+        <span class="arabic">أَسْتَغْفِرُ اللهَ</span>
+        <div class="latin">Astaghfirullah</div><div class="meaning">Artinya: Aku memohon ampun kepada Allah.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PANEL 5 ═══ -->
+<div class="panel" id="p4">
+  <div class="sec-hdr" style="background:linear-gradient(135deg,#92400e,#d97706);">🌟 Bab 5: Aku Meneladani Kisah Para Nabi</div>
+  <div class="cards-grid">
+
+    <div class="card" style="border-color:#d97706;">
+      <div class="card-title" style="color:#d97706;">🌿 Nabi Luth AS</div>
+      <ul class="info-list"><li>Nabi Luth AS adalah nabi yang mengajak kaumnya taat kepada Allah.</li><li>Nabi Luth AS mengingatkan kaumnya agar meninggalkan perbuatan buruk.</li><li>Nabi Luth AS tetap berani menyampaikan kebenaran.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>berani berkata benar</li><li>taat kepada Allah</li><li>menjauhi perbuatan buruk</li><li>tidak ikut-ikutan teman dalam keburukan</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#b45309;">
+      <div class="card-title" style="color:#b45309;">🌸 Nabi Ismail AS</div>
+      <ul class="info-list"><li>Nabi Ismail AS adalah putra Nabi Ibrahim AS.</li><li>Nabi Ismail AS dikenal sebagai anak yang sabar dan taat.</li><li>Nabi Ismail AS patuh kepada perintah Allah dan berbakti kepada orang tua.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>sabar</li><li>patuh kepada orang tua</li><li>taat kepada Allah</li><li>tidak membantah saat dinasihati</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#f59e0b;">
+      <div class="card-title" style="color:#c07800;">⭐ Nabi Ishak AS</div>
+      <ul class="info-list"><li>Nabi Ishak AS adalah putra Nabi Ibrahim AS.</li><li>Nabi Ishak AS adalah nabi yang saleh.</li><li>Nabi Ishak AS mengajarkan ketaatan kepada Allah.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>taat kepada Allah</li><li>berbuat baik kepada keluarga</li><li>menjadi anak yang saleh</li><li>menyayangi orang tua</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#ea580c;">
+      <div class="card-title" style="color:#ea580c;">🏡 Nabi Ya'kub AS</div>
+      <ul class="info-list"><li>Nabi Ya'kub AS adalah putra Nabi Ishak AS.</li><li>Nabi Ya'kub AS memiliki julukan Israil.</li><li>Keturunan Nabi Ya'kub AS dikenal dengan sebutan Bani Israil.</li><li>Nabi Ya'kub AS dikenal sebagai ayah yang menyayangi anak-anaknya.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>menyayangi keluarga</li><li>sabar menghadapi ujian</li><li>tetap berdoa kepada Allah</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#d97706;">
+      <div class="card-title" style="color:#d97706;">🌙 Nabi Yusuf AS</div>
+      <ul class="info-list"><li>Nabi Yusuf AS adalah putra Nabi Ya'kub AS.</li><li>Saat masih muda, Nabi Yusuf AS pernah bermimpi.</li><li>Dalam mimpinya, Nabi Yusuf AS melihat matahari, bulan, dan sebelas bintang bersujud kepadanya.</li><li>Nabi Yusuf AS dikenal tampan, sabar, pemaaf, dan taat kepada Allah.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>sabar saat mendapat ujian</li><li>memaafkan orang lain</li><li>tidak membalas keburukan dengan keburukan</li><li>tetap taat kepada Allah</li></ul>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#92400e;">
+      <div class="card-title" style="color:#92400e;">🌱 Nabi Ayyub AS</div>
+      <ul class="info-list"><li>Nabi Ayyub AS dikenal sebagai nabi yang sangat sabar.</li><li>Nabi Ayyub AS tetap taat kepada Allah walaupun mendapat ujian berat.</li><li>Nabi Ayyub AS mengajarkan kita agar tidak mudah mengeluh.</li></ul>
+      <div class="sub-sec"><div class="sub-title">Teladan</div>
+        <ul class="info-list"><li>sabar saat sakit</li><li>sabar saat mengalami kesulitan</li><li>tetap berdoa kepada Allah</li><li>tidak mudah marah</li><li>tidak putus asa</li></ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /content-area -->
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.getAttribute('data-t');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('p' + t).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
